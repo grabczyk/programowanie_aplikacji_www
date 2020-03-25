@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Ćwiczenie 11</title>
+
+    <style>
+        img {
+            height: 600px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #next {
+            position: absolute;
+            bottom: 50%;
+            right: 100px
+        }
+
+        #back {
+            position: absolute;
+            bottom: 50%;
+            left: 100px
+        }
+
+        button {
+            background-color: #5e92a6;
+            border: none;
+            color: white;
+            padding: 20px 40px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+<body>
+<img src="a1.jpg">
+<button onclick="next()" id="next">Następne</button>
+<button onclick="back()" id="back">Poprzednie</button>
+
+<script>
+    var nr = 1;
+    var obrazki = ["a1.jpg", "a2.jpg", "a3.jpg", "a4.jpg", "a5.jpg", "a6.jpg", "a7.jpg", "a8.jpg", "a9.jpg", "a10.jpg"];
+
+    function next() {
+        nr++;
+        if (nr > 10) nr = 1;
+        document.images[0].src = "a" + nr + ".jpg";
+    }
+
+    function back() {
+        nr--;
+        if (nr < 1) nr = 10;
+        document.images[0].src = "a" + nr + ".jpg";
+
+    }
+
+</script>
+</body>
+</html>

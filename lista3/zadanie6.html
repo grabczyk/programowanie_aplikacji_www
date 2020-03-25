@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 6</title>
+    <style>
+        img {
+            width: 30%;
+            max-width: 200px;
+            margin-left: 20px;
+            left: 100%;
+        }
+
+        p {
+            text-align: right;
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<p><b>KOT NEBELUNG</b><img src="nebelung.jpeg"></p>
+<p><b>KOT ABISYŃSKI</b><img src="abisynski.jpg"></p>
+<p><b>KOT SYJAMSKI</b><img src="syjamski.jpg"></p>
+<p><b>KOT BALIJSKI</b><img src="balijski.jpeg"></p>
+<p><b>KOT BURMILLA</b><img src="burmilla.jpg"></p>
+
+<script>
+    p = document.querySelectorAll('p');
+    var i = 0;
+
+    function a() {
+        p[i].style.display = 'none';
+        i++;
+        if (i == 5) i = 0;
+        b();
+
+    }
+
+    function b() {
+        p[i].style.display = 'block';
+    }
+
+    a();
+    setInterval(a, 1000);
+</script>
+</body>
+</html>

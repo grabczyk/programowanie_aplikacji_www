@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8"/>
+    <title>Ćwiczenie 4</title>
+    <style>
+        button {
+            padding: 10px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        div {
+            position: absolute;
+            margin-top: 100px
+        }
+    </style>
+</head>
+<body>
+<div id="lista"></div>
+</body>
+<button onclick="wszyscy()">Wszyscy</button>
+<button onclick="pokaz('fizyka')">fizyka</button>
+<button onclick="pokaz('chemia')">chemia</button>
+<button onclick="pokaz('filozofia')">filozofia</button>
+<button onclick="pokaz('informatyka')">informatyka</button>
+<button onclick="pokaz('biologia')">biologia</button>
+<button onclick="pokaz('socjologia')">socjologia</button>
+<button onclick="pokaz('kryminalistyka')">kryminalistyka</button>
+<script>
+    var student = [
+        {imie: "Ola", nazwisko: "Lis", kierunek: "fizyka"},
+        {imie: "Ala", nazwisko: "Góral", kierunek: "chemia"},
+        {imie: "Kasia", nazwisko: "Chemik", kierunek: "chemia"},
+        {imie: "Jan", nazwisko: "Nowak", kierunek: "fizyka"},
+        {imie: "Piotr", nazwisko: "Kowalski", kierunek: "filozofia"},
+        {imie: "Paweł", nazwisko: "Polski", kierunek: "chemia"},
+        {imie: "Kasia", nazwisko: "Sobota", kierunek: "filozofia"},
+        {imie: "Robert", nazwisko: "Siwy", kierunek: "informatyka"},
+        {imie: "Barbara", nazwisko: "Tokarczuk", kierunek: "informatyka"},
+        {imie: "Albert", nazwisko: "Czwartek", kierunek: "biologia"},
+        {imie: "Beata", nazwisko: "Kozidrak", kierunek: "socjologia"},
+        {imie: "Alfred", nazwisko: "Hojny", kierunek: "biologia"},
+        {imie: "Krzesimir", nazwisko: "Staropolski", kierunek: "biologia"},
+        {imie: "Leokadia", nazwisko: "Krakowska", kierunek: "biologia"},
+        {imie: "Marek", nazwisko: "Wtorek", kierunek: "kryminalistyka"},
+        {imie: "Marcin", nazwisko: "Król", kierunek: "kryminalistyka"},
+
+
+    ];
+    var lista = document.getElementById('lista');
+
+    function wszyscy() {
+        lista.innerHTML = '';
+        lista.innerHTML += '<h2>Studenci</h2>';
+        lista.innerHTML += '<ol>';
+        var ol = document.querySelector('ol');
+        for (i = 0; i < student.length; i++) {
+            ol.innerHTML += '<li>' + student[i].imie + ' ' + student[i].nazwisko + ' ' + '(' + student[i].kierunek + ')</li>';
+        }
+        lista.innerHTML += '</ol>';
+
+    }
+
+    function pokaz(kierunek) {
+        lista.innerHTML = '';
+        lista.innerHTML += '<h2>' + kierunek + '</h2>';
+        lista.innerHTML += '<ol>';
+        var ol = document.querySelector('ol');
+        for (var i = 0; i <= student.length; i++) {
+
+            if (kierunek === student[i].kierunek) {
+                ol.innerHTML += '<li>' + student[i].imie + ' ' + student[i].nazwisko + '</li>';
+
+            }
+        }
+
+
+    }
+
+</script>
+</html>

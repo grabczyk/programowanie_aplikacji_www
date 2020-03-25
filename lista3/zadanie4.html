@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 4</title>
+    <style>
+        button {
+            background-color: #5e92a6;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<p>первый</p>
+<p>второй</p>
+<p>третий</p>
+<p>четвертый</p>
+<p>пятый</p>
+<p>шестой</p>
+<p>седьмой</p>
+<p>восьмой</p>
+<p>девятый</p>
+<p>десятый</p>
+<p>одиннадцатый</p>
+<p>двенадцатый</p>
+<p>тринадцатый</p>
+<p>четырнадцатый</p>
+<p>пятнадцатый</p>
+<button onclick="b()">OK</button>
+<button onclick="c()">Różowe tło, niebieski tekst</button>
+<button onclick="d()">Dodaj paragraf</button>
+<button onclick="e()">Dodaj paragraf z numerem</button>
+
+
+</body>
+<script>
+    window.onload = function a() {
+        var p = document.querySelectorAll('p');
+        for (let i = 4; i < p.length; i += 5) {
+            p[i].style.color = 'yellow';
+            p[i].style.background = 'black';
+        }
+    };
+
+    function b() {
+        var p = document.querySelectorAll('p');
+        for (let i = 0; i < p.length; i++) {
+            p[i].style.color = 'black';
+            p[i].style.background = 'white';
+        }
+    }
+
+    function c() {
+        var p = document.querySelectorAll('p');
+        for (let i = 2; i < p.length; i += 3) {
+            p[i].style.color = 'blue';
+            p[i].style.background = 'pink';
+        }
+    }
+
+    function d() {
+        var p = document.querySelectorAll('p');
+        document.body.innerHTML += '<p>' + p[p.length - 15].innerHTML + '</p>';
+
+    }
+
+    function e() {
+        var p = document.querySelectorAll('p');
+        len = p.length + 1;
+        document.body.innerHTML += '<p>' + "Numer tego paragrafu to " + len + '</p>';
+    }
+</script>
+</html>

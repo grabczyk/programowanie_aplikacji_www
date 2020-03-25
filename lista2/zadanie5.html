@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Ćwiczenie 4</title>
+    <style>
+        table.colspan {
+            border: 5px dotted;
+            color: blue;
+            background: red;
+            margin: 20px 100px 100px 20px;
+        } th {
+              text-align: center;
+            border-style: dashed;
+            font-weight: bold;
+
+          }
+
+        td {
+            border-style: dashed;
+            padding: 20px;
+            vertical-align: baseline;
+        }
+        tr{
+            margin: 20px 30px 40px 50px;
+        }
+
+        table.rowspan {
+            border: 8px dashed;
+            color: green;
+            background: orangered;
+            margin: 20px 100px 100px 20px;
+        } th {
+              text-align: center;
+              border-style: dashed;
+              font-weight: bold;
+
+          }
+
+        td:nth-child(1) {
+            border-style: dashed;
+            padding: 10px;
+            vertical-align: baseline;
+            text-align: left;
+
+
+        }
+        td:nth-child(2) {
+            border-style: dashed;
+            padding: 30px;
+            vertical-align: baseline;
+            text-align: center;
+
+
+        }
+        td:nth-child(3) {
+            border-style: solid;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<table class="colspan">
+    <tr>
+        <th>Miesiąc</th>
+        <th>Wydatki</th>
+    </tr>
+    <tr>
+        <td>Styczeń</td>
+        <td>1400 zł</td>
+    </tr>
+    <tr>
+        <td>Luty</td>
+        <td>1600 zł</td>
+    </tr>
+    <tr>
+        <td>Marzec</td>
+        <td>1200 zł</td>
+    </tr>
+    <tr>
+        <td>Kwiecień</td>
+        <td>1800 zł</td>
+    </tr>
+    <tr>
+        <td>Maj</td>
+        <td>2300 zł</td>
+    </tr>
+    <tr>
+        <td>Czerwiec</td>
+        <td>2700 zł</td>
+    </tr>
+    <tr>
+        <td colspan="2">Suma wydatków: 11000 zł</td>
+    </tr>
+</table>
+<table class="rowspan">
+    <tr>
+        <th>Miesiąc</th>
+        <th>Średnia temperatura</th>
+        <th>Średnia temperatura na dany okres</th>
+    </tr>
+    <tr>
+        <td>Styczeń</td>
+        <td>3°</td>
+        <td rowspan="2">3.5°</td>
+    </tr>
+    <tr>
+        <td>Luty</td>
+        <td>4°</td>
+    </tr>
+    <tr>
+        <td>Marzec</td>
+        <td>9°</td>
+        <td rowspan="2">11.5°</td>
+    </tr>
+    <tr>
+        <td>Kwiecień</td>
+        <td>14°</td>
+    </tr>
+    <tr>
+        <td>Maj</td>
+        <td>18°</td>
+        <td rowspan="2">16°</td>
+    </tr>
+    <tr>
+        <td>Czerwiec</td>
+        <td>22°</td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 5</title>
+</head>
+<body>
+<canvas width=600 height=600>
+</canvas>
+<button onclick="run()">Uruchom animacje</button>
+<button onclick="stop()">Zatrzymaj animacje</button>
+</body>
+<script>
+    var dane = [
+        {x: 60, y: 125, vx: 2, vy: -1, height: 60, width: 20, rysuj: balwan},
+        {x: 300, y: 125, vx: -1, vy: 2, height: 60, width: 20, rysuj: balwan},
+        {x: 540, y: 125, vx: 2, vy: -1, height: 60, width: 20, rysuj: balwan},
+        {x: 60, y: 315, vx: -1, vy: -2, height: 60, width: 20, rysuj: balwan},
+        {x: 300, y: 315, vx: -2, vy: 2, height: 60, width: 20, rysuj: balwan},
+        {x: 540, y: 315, vx: -2, vy: 1, height: 60, width: 20, rysuj: balwan},
+        {x: 60, y: 505, vx: -2, vy: -2, height: 60, width: 20, rysuj: balwan},
+        {x: 300, y: 505, vx: 2, vy: 1, height: 60, width: 20, rysuj: balwan},
+        {x: 540, y: 505, vx: 1, vy: -2, height: 60, width: 20, rysuj: balwan},
+        {x: 390, y: 80, vx: 1, vy: -2, height: 35, width: 20, rysuj: domek},
+        {x: 150, y: 80, vx: 2, vy: -1, height: 35, width: 20, rysuj: domek},
+        {x: 150, y: 270, vx: 1, vy: -1, height: 35, width: 30, rysuj: domek},
+        {x: 390, y: 270, vx: -1, vy: 2, height: 35, width: 30, rysuj: domek},
+        {x: 150, y: 460, vx: 2, vy: -1, height: 35, width: 30, rysuj: domek},
+        {x: 390, y: 460, vx: -1, vy: 2, height: 35, width: 30, rysuj: domek}
+    ];
+
+    function snowman(x, y, width) {
+
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(x, y, width, 1.5 * Math.PI, 3.5 * Math.PI);
+        ctx.arc(x, y - width * 1.2, 0.7 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - width * 1.7, 0.2 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x, y - width * 1.9);
+        ctx.arc(x, y - width * 2.1, 0.5 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(x, y - width * 1.2, 0.1 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - width * 0.9, 0.1 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - width * 0.6, 0.1 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x - 0.1 * width, y - 2 * width);
+        ctx.arc(x - 0.15 * width, y - width * 2.2, 0.08 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x + 0.1 * width, y - 2 * width);
+        ctx.arc(x + 0.15 * width, y - width * 2.2, 0.08 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x, y - 1.8 * width);
+        ctx.arc(x, y - 1.8 * width, 0.15 * width, Math.PI, 0, true);
+        ctx.moveTo(x - 0.5 * width, y + width * 2);
+        ctx.rect(x - 0.5 * width, y - width * 2.6, width, 2);
+        ctx.rect(x - 0.40 * width, y - width * 2.8, width * 0.8, width * 0.25);
+        ctx.fill();
+
+        ctx.fillStyle = "orange";
+        ctx.beginPath();
+        ctx.arc(x, y - width * 1.98, 0.08 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.fill();
+    }
+
+    function house(x, y, width) {
+        ctx.fillStyle = "gray";
+        ctx.beginPath();
+        ctx.rect(x, y, width, width);
+        ctx.fill();
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.rect(x + 0.4 * width, y + 0.70 * width, 0.2 * width, 0.3 * width);
+
+        ctx.moveTo(x - 0.1 * width, y);
+        ctx.lineTo(x + width * 1.1, y);
+        ctx.lineTo(x + 0.5 * width, y - 0.2 * width);
+
+        ctx.rect(x + 0.15 * width, y + 0.15 * width, 0.2 * width, 0.2 * width);
+        ctx.rect(x + 0.65 * width, y + 0.15 * width, 0.2 * width, 0.2 * width);
+        ctx.fill();
+
+    }
+
+    function balwan() {
+        snowman(this.x, this.y, this.width)
+    }
+
+    function domek() {
+        house(this.x, this.y, this.width)
+    }
+
+    var ctx = document.querySelector("canvas").getContext("2d");
+
+
+    function redraw(dane) {
+        ctx.fillStyle = "aqua";
+        ctx.clearRect(0, 0, 600, 600);
+        ctx.fillRect(0, 0, 600, 600);
+        for (let x of dane)
+            x.rysuj();
+    }
+
+    redraw(dane);
+
+    function ruch() {
+        for (let f of dane) {
+            f.x += f.vx;
+            f.y += f.vy;
+            if (f.rysuj === balwan) {
+                if (f.x < f.width || f.x + f.width > 600) f.vx *= -1;
+                if (f.y < f.height || f.y + f.width > 600) f.vy *= -1;
+            } else if (f.rysuj === domek) {
+                if (f.x < 0 || f.x + f.width > 600) f.vx *= -1;
+                if (f.y < f.height / 4 || f.y + f.width > 600) f.vy *= -1;
+
+            }
+        }
+        redraw(dane);
+    }
+
+    var animacja;
+    var clicked = 0;
+
+    function run() {
+        if (clicked === 0) {
+            animacja = setInterval(ruch, 15);
+        }
+        clicked = 1;
+    }
+
+    function stop() {
+        clearInterval(animacja);
+        clicked = 0;
+    }
+</script>
+</html>

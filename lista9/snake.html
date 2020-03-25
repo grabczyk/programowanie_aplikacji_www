@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        #ramka {
+            height: 600px;
+            width: 600px;
+            margin: auto;
+            position: relative;
+            visibility: visible;
+        }
+
+        #border {
+            height: 600px;
+            width: 600px;
+            border: 18px solid grey;
+            margin: auto;
+            position: relative;
+            visibility: visible;
+        }
+
+        #over {
+            top: 200px;
+            color: #b50b06;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 40px;
+            position: relative;
+            visibility: hidden;
+        }
+
+        #over button {
+            background-color: #22a60e;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 40px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+
+        b.snake {
+            display: block;
+            height: 18px;
+            width: 18px;
+            background: #01b500;
+            position: absolute;
+        }
+
+        b.food {
+            height: 18px;
+            width: 18px;
+            background-image: url('background.png');
+            background-color: black;
+            position: absolute;
+        }
+
+        h1, div {
+            text-align: center;
+            margin: 10px;
+            background-color: black;
+        }
+
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<div id="ramka">
+    <div id="border">
+        <div id="over"></div>
+    </div>
+</div>
+
+</body>
+<script>
+
+    let snake = {
+        x: 200,
+        y: 200,
+        dx: 20,
+        dy: 0,
+        all_cells: [],
+        size: 1
+    };
+
+    let food = {
+        x: 300,
+        y: 300
+    };
+
+    let play_flag = true;
+    let food_flag = false;
+
+    setInterval(function () {
+        if (play_flag) {
+
+
+            snake.x += snake.dx;
+            snake.y += snake.dy;
+
+            snake.all_cells.unshift({x: snake.x, y: snake.y});
+
+            if (snake.all_cells.length > snake.size) snake.all_cells.pop();
+
+
+            $('#ramka').append("<b class='snake' style='left:" + snake.x + "px;top:" + snake.y + "px'></b>");
+            if (!food_flag) {
+                $('#ramka').append("<b class='food' style='left:" + food.x + "px;top:" + food.y + "px'></b>");
+                food_flag = true;
+            }
+
+            setTimeout(function () {
+                $('#ramka> b.snake:first').remove();
+
+            }, 500);
+
+            if (snake.x > 600 || snake.x < 20) {
+                game_over();
+            }
+            if (snake.y > 600 || snake.y < 20) {
+                game_over();
+            }
+
+
+            if (snake.all_cells[0].x === food.x && snake.all_cells[0].y === food.y) {
+                snake.size++;
+                $('#ramka').prepend("<b class='snake' style='left:" + (food.x) + "px;top:" + (food.y) + "px'></b>");
+                $('#ramka> b.food').remove();
+                food.x = Math.floor((Math.random() * 28) + 1) * 20;
+                food.y = Math.floor((Math.random() * 28) + 1) * 20;
+                $('#ramka').append("<b class='food' style='left:" + food.x + "px;top:" + food.y + "px'></b>");
+            }
+
+            for (let i = 1; i < snake.all_cells.length; i++) {
+                if (snake.all_cells[0].x === snake.all_cells[i].x && snake.all_cells[0].y === snake.all_cells[i].y) {
+                    game_over();
+
+                }
+            }
+
+        }
+    }, 500);
+
+
+    function game_over() {
+        play_flag = false;
+
+        $("div#border").css("visibility", "hidden");
+        $("div#ramka").css("visibility", "hidden");
+        $("div#over").css("visibility", "visible");
+        let wynik = "GAME OVER<br>Twój wynik: " + snake.size;
+        $("div#over").append(wynik);
+        let button = "<br><br><button onclick='new_game()'>Nowa gra</button>";
+        $("div#over").append(button);
+
+    }
+
+    function new_game() {
+        snake.x = 200;
+        snake.y = 200;
+        snake.dx = 20;
+        snake.dy = 0;
+        snake.all_cells = [];
+        snake.size = 1;
+        $("div#border").css("visibility", "visible");
+        $("div#ramka").css("visibility", "visible");
+        $("div#ramka b").each(function () {
+            $(this).remove()
+        });
+        $("div#over").css("visibility", "hidden");
+        $("div#over").empty();
+
+        food_flag=false;
+        last=39;
+        play_flag = true;
+
+    }
+
+    let last = 39;
+    $(document).keydown(function (event) {
+        let a = event.keyCode;
+
+        if (a === 37 && last !== 39) {
+            snake.dx = -20;
+            snake.dy = 0;
+            last = a;
+        } // strzałka w lewo
+        if (a === 38 && last !== 40) {
+            snake.dx = 0;
+            snake.dy = -20;
+            last = a;
+        } // strzałka w górę
+        if (a === 39 && last !== 37) {
+            snake.dx = 20;
+            snake.dy = 0;
+            last = a;
+        } // strzałka w prawo
+        if (a === 40 && last !== 38) {
+            snake.dx = 0;
+            snake.dy = 20;
+            last = a;
+        } // strzałka w dół
+        direction = a;
+    });
+
+</script>
+</html>
+

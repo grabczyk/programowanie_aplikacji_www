@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenia</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<p>Pierwszy</p>
+<p>Drugi</p>
+<p>Ostatni</p>
+<table id='liczby'>
+    <tr>
+        <td>2</td>
+        <td>3
+        <td></td>
+    <tr>
+        <td>4</td>
+        <td>4
+        <td></td>
+</table>
+<div id="suma"></div>
+<input id="a">*<input id="a">=<input id="c">
+<button id='akcja'>Kliknij</button>
+</body>
+<script>
+
+    $("p:last-of-type").click(function () {
+
+        $("p:first-of-type").css({"background-color": "yellow"});
+    });
+</script>
+</html>

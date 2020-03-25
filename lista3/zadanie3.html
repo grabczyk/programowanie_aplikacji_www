@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 3</title>
+    <style>
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 100px;
+            margin-left: -50px;
+            margin-top: -50px;
+        }
+
+        button.lewo {
+            position: absolute;
+            left: 0;
+            top: 50%
+        }
+
+        button.prawo {
+            position: absolute;
+            right: 0;
+            top: 50%
+        }
+
+        button.gora {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -20px;
+        }
+
+        button.dol {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -20px;
+        }
+
+    </style>
+</head>
+<body>
+<img onclick="display()" id="test" src="penrose.jpg">
+<button class="lewo" onclick="lewo()">lewo</button>
+<button class="prawo" onclick="prawo()">prawo</button>
+<button class="gora" onclick="gora()">gora</button>
+<button class="dol" onclick="doll()">dol</button>
+<script>
+    var image = document.querySelector('img');
+    var gor = 0;
+    var dol = 0;
+
+    function lewo() {
+        dol -= 10;
+        image.style.transform = image.style.transform = "translate(" + dol + "px," + gor + "px)";
+    }
+
+    function prawo() {
+        dol += 10;
+        image.style.transform = image.style.transform = "translate(" + dol + "px," + gor + "px)";
+    }
+
+    function gora() {
+        gor -= 10;
+        image.style.transform = image.style.transform = "translate(" + dol + "px," + gor + "px)";
+    }
+
+    function doll() {
+        gor += 10;
+        image.style.transform = image.style.transform = "translate(" + dol + "px," + gor + "px)";
+    }
+
+    function display() {
+        image.style.display = 'none';
+
+    }
+</script>
+</body>
+</html>

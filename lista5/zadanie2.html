@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Ćwiczenie 2</title>
+    <style>
+        .choinka {
+            animation-name: choinka;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            transform-origin: 50% 50%;
+        }
+
+        @keyframes choinka {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(0, -500px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        .domek {
+            animation-name: domek;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            transform-origin: 180px 180px;
+        }
+
+        @keyframes domek {
+            0% {
+                transform: skew(0);
+            }
+            25% {
+                transform: skew(-35deg);
+            }
+            50% {
+                transform: skew(0);
+            }
+            75% {
+                transform: skew(35deg);
+            }
+            100% {
+                transform: skew(0);
+            }
+        }
+
+        .chmurka {
+            animation-name: chmurka;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes chmurka {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .statek {
+            animation-name: statek;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            transform-origin: 400px 0;
+        }
+
+        @keyframes statek {
+            0% {
+                transform: translate(-500px, 0);
+            }
+            30% {
+                transform: translate(500px, 0);
+            }
+            60% {
+                transform: rotateY(180deg);
+            }
+            75% {
+                transform: translate(200px, 0)
+            }
+            100% {
+                transform: translate(1000px, 0);
+            }
+
+        }
+    </style>
+</head>
+<body>
+<svg width="2000" height="2000">
+
+    <path class="domek" d="m 100 200 v 100 h 100 v -100 h -100 " fill="gray" stroke="black" stroke-width="1"/>
+    <path class="domek" d="m 80 200 h 140 l -70 -30 l -70 30" fill="black" stroke="black" stroke-width="1"/>
+    <path class="domek" d="m 140 300 h 20 v -30 h -20 v 30" fill="black" stroke="black" stroke-width="1"/>
+    <path class="domek" d="m 120 220 h 15 v 15 h -15 v -15" fill="black" stroke="black" stroke-width="1"/>
+    <path class="domek" d="m 165 220 h 15 v 15 h -15 v -15" fill="black" stroke="black" stroke-width="1"/>
+
+
+    <path class="choinka" d="m 440 300 h 20 v -30 h -20 v 30" fill="brown" stroke="black" stroke-width="1"/>
+    <path class="choinka" d="m 380 270 h 140 l -70 -40 l -70 40 " fill="green" stroke="black" stroke-width="1"/>
+    <path class="choinka" d="m 390 245 h 120 l -60 -40 l -60 40" fill="green" stroke="black" stroke-width="1"/>
+    <path class="choinka" d="m 400 225 h 100 l -50 -40 l -50 40" fill="green" stroke="black" stroke-width="1"/>
+    <path class="choinka" d="m 410 205 h 80 l -40 -40 l -40 40" fill="green" stroke="black" stroke-width="1"/>
+
+    <path class="chmurka" d="M 800 200 A 50 25 0 1 1 900 200 A 50 25 0 1 1 950 250 A 50 25 0 1 1 950 300 A 50
+    25 0 1 1 850 300 A 50 25 0 1 1 750 300 A 50 25 0 1 1 700 250 A 50 25 0 1 1 800 200 " fill="aqua" stroke="blue"
+          stroke-width="1"/>
+
+    <path class="statek" d="M 400 500 L 600 500 Q 600 550 550 550 L 450 550 Q 400 550 400 500 " fill="brown"
+          stroke="black" stroke-width="1"/>
+    <path class="statek" d="M 500 350 L 500 450 Q 600 400 500 350 " fill="red" stroke="black" stroke-width="1"/>
+    <path class="statek" d="m 495 350 h 5 v 150 h -5 v -150" fill="black" stroke="black" stroke-width="1"/>
+
+</svg>
+</body>
+</html>

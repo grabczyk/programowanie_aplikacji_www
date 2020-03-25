@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Ćwiczenie 11</title>
+
+    <style>
+        img {
+            height: 600px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        img:not(:first-child) {
+            display: none;
+        }
+
+        #next {
+            position: absolute;
+            bottom: 50%;
+            right: 100px
+        }
+
+        #back {
+            position: absolute;
+            bottom: 50%;
+            left: 100px
+        }
+
+        button {
+            background-color: #5e92a6;
+            border: none;
+            color: white;
+            padding: 20px 40px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+<body>
+<img src="a1.jpg">
+<img src="a2.jpg">
+<img src="a3.jpg">
+<img src="a4.jpg">
+<img src="a5.jpg">
+<img src="a6.jpg">
+<img src="a7.jpg">
+<img src="a8.jpg">
+<img src="a9.jpg">
+<img src="a10.jpg">
+<button onclick="next()" id="next">Następne</button>
+<button onclick="back()" id="back">Poprzednie</button>
+
+<script>
+
+    var nr = 0;
+
+    function next() {
+        document.images[nr].style.display = 'none';
+        nr++;
+        if (nr > 9) nr = 0;
+        document.images[nr].style.display = 'block';
+    }
+
+    function back() {
+        document.images[nr].style.display = 'none';
+        nr--;
+        if (nr < 0) nr = 9;
+        document.images[nr].style.display = 'block';
+    }
+
+</script>
+</body>
+</html>

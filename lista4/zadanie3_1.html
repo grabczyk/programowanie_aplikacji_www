@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        h1 {
+            font-size: 50px
+        }
+
+        #cel, #x {
+            font-size: 50px
+        }
+
+        button {
+            font-size: 20px
+        }
+
+        h1, div {
+            text-align: center
+        }
+
+        div {
+            font-size: 30px
+        }
+
+        span {
+            background: yellow;
+            border: 1px solid grey;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            line-height: 80px;
+
+        }
+
+        #rozwiazanie {
+            background-color: green
+        }
+
+        #sekwencja {
+            background-color: lightblue
+        }
+    </style>
+</head>
+<body>
+<h1>Binary</h1>
+
+<div id='cel'></div>
+<div id='x'></div>
+
+<div>
+    <span onclick='razy()'>*2</span> <span id='dodaj'>+1</span>
+</div>
+
+<div>
+    <button onclick='losuj(100)'>Do 100</button>
+    <button onclick='losuj(1000)'>Do 1000</button>
+    <button onclick='losuj(10000)'>Do 10000</button>
+    <button onclick='losuj(100000)'>Do 10000</button>
+    <button onclick='losuj(1000000)'>Do 100000</button>
+</div>
+
+<div>
+    Otrzymaj podaną liczbę z jedynki za pomocą mnożenia przez 2 i dodawania jedynki.
+    <br/>
+    Uwaga: nie można wykonać dwóch dodawań bezpośrednio po sobie.
+</div>
+
+<div id='rozwiazanie'>
+    Jak wygrać: <br>Należy zamienić liczbę na system dwójkowy, a następnie czytając wynik od tyłu należy dla "0"
+    pomnożyć,<br>a dla "1" dodać i pomnożyć.
+
+</div>
+<div id='sekwencja'>
+</div>
+<script>
+
+    var cel = document.querySelector('#cel');
+    var x = document.querySelector('#x');
+    var dodaj = document.querySelector('#dodaj');
+
+    losuj(100);
+
+    function losuj(n) {
+        cel.innerHTML = Math.ceil(Math.random() * n);
+        x.innerHTML = 1;
+        dodaj.onclick = null;
+        dodaj.style.background = 'grey';
+    }
+
+    function razy() {
+        x.innerHTML *= 2;
+        sprawdz();
+        dodaj.onclick = plus;
+        dodaj.style.background = '';
+    }
+
+    function plus() {
+        x.innerHTML = Number(x.innerHTML) + 1;
+        sprawdz();
+        dodaj.onclick = null;
+        dodaj.style.background = 'grey';
+    }
+
+    function sprawdz() {
+        if (Number(x.innerHTML) > Number(cel.innerHTML))
+            cel.innerHTML = 'Niestety przegrałeś';
+        if (Number(x.innerHTML) === Number(cel.innerHTML))
+            cel.innerHTML = 'Gratuluję wygranej!!!';
+    }
+
+    function instrukcja() {
+        var bazowa = Number(cel.innerHTML);
+        var liczba = Number(cel.innerHTML);
+        var sekwencja = document.getElementById('sekwencja');
+        sekwencja.innerHTML += 'Dla liczby ' + liczba + ' kroki do rozwiązania to:<br>'
+        array = [];
+        while (liczba > 1) {
+            if (liczba % 2 === 1) {
+                array.push('dodaj i pomnóż');
+                liczba = (liczba - 1) / 2;
+            } else {
+                array.push('pomnóż');
+                liczba = liczba / 2;
+            }
+        }
+        array.push('pomnóż');
+        console.log(array);
+        array.reverse();
+        console.log(array.length)
+        if (bazowa % 2 === 0) {
+            array.pop();
+        } else {
+            array.pop();
+            array.push('dodaj')
+        }
+        for (i = 0; i < array.length; i++) {
+            sekwencja.innerHTML += i + 1 + '. ' + array[i] + '<br>';
+        }
+    }
+
+    instrukcja();
+</script>
+
+</body>
+</html>

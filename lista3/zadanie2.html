@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 2</title>
+    <style>
+        p {
+            border: solid green;
+            background: pink;
+            cursor: pointer;
+            width: 10%
+        }
+    </style>
+</head>
+<body>
+<p onclick="f()">Jeszcze nie kliknięty</p>
+<script>
+    var p = document.querySelector('p');
+    var licznik = 0;
+
+    function f() {
+        licznik++;
+        p.innerHTML = 'Kliknięty po raz: ' + licznik;
+
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 4</title>
+</head>
+<body>
+<canvas id="rys" width=600 height=600>
+</canvas>
+
+</body>
+<script>
+    let c = document.getElementById('rys');
+    let ctx = c.getContext('2d');
+
+    ctx.fillStyle = "aqua";
+    ctx.fillRect(0, 0, 600, 600);
+
+    function snowman(x, y, height) {
+
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(x, y, height, 1.5 * Math.PI, 3.5 * Math.PI);
+        ctx.arc(x, y - height * 1.2, 0.7 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - height * 1.7, 0.2 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x, y - height * 1.9);
+        ctx.arc(x, y - height * 2.1, 0.5 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(x, y - height * 1.2, 0.1 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - height * 0.9, 0.1 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - height * 0.6, 0.1 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x - 0.1 * height, y - 2 * height);
+        ctx.arc(x - 0.15 * height, y - height * 2.2, 0.08 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x + 0.1 * height, y - 2 * height);
+        ctx.arc(x + 0.15 * height, y - height * 2.2, 0.08 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x, y - 1.8 * height);
+        ctx.arc(x, y - 1.8 * height, 0.15 * height, Math.PI, 0, true);
+        ctx.moveTo(x - 0.5 * height, y + height * 2);
+        ctx.rect(x - 0.5 * height, y - height * 2.6, height, 2);
+        ctx.rect(x - 0.40 * height, y - height * 2.8, height * 0.8, height * 0.25);
+        ctx.fill();
+
+        ctx.fillStyle = "orange";
+        ctx.beginPath();
+        ctx.arc(x, y - height * 1.98, 0.08 * height, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.fill();
+    }
+
+    function domek(x, y, height) {
+        ctx.fillStyle = "gray";
+        ctx.beginPath();
+        ctx.rect(x, y, height, height);
+        ctx.fill();
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.rect(x + 0.4 * height, y + 0.70 * height, 0.2 * height, 0.3 * height);
+
+        ctx.moveTo(x - 0.1 * height, y);
+        ctx.lineTo(x + height * 1.1, y);
+        ctx.lineTo(x + 0.5 * height, y - 0.2 * height);
+
+        ctx.rect(x + 0.15 * height, y + 0.15 * height, 0.2 * height, 0.2 * height);
+        ctx.rect(x + 0.65 * height, y + 0.15 * height, 0.2 * height, 0.2 * height);
+        ctx.fill();
+
+    }
+
+    let r;
+    for (let j = 125; j <= 505; j += 190) {
+        r = 42;
+
+        for (let i = 60; i <= 560; i += 240) {
+            snowman(i, j, r);
+            if (j === 315) r += 3;
+            else r -= 7;
+        }
+    }
+
+    for (let j = 80; j <= 505; j += 190) {
+        r = 90;
+
+        for (let i = 150; i <= 560; i += 240) {
+            domek(i, j, r);
+            r -= 20;
+        }
+    }
+
+
+</script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8"/>
+    <title>Ćwiczenie 5</title>
+    <style>
+        div.wykres > div {
+            width: 50px;
+            margin: 20px;
+            box-shadow: 10px 10px 5px grey;
+            border: 1px solid grey;
+            display: inline-block;
+            margin-top: 50px;
+            vertical-align: bottom;
+        }
+
+        div.wykres > div b {
+            top: -20px;
+            position: relative;
+            text-shadow: 5px 5px 5px grey;
+        }
+
+        div.wykres div div {
+            color: white;
+            position: relative;
+            top: -15px;
+            text-shadow: 0px 0px 5px black;
+        }
+    </style>
+
+</head>
+<body>
+<div id="studenci"></div>
+<button onclick="wykres(dane_wykres,'wykres')">Wykres</button>
+<center id='wykres'></center>
+</body>
+<script>
+    var student = [
+        {imie: "Ola", nazwisko: "Lis", kierunek: "fizyka"},
+        {imie: "Ala", nazwisko: "Góral", kierunek: "chemia"},
+        {imie: "Kasia", nazwisko: "Chemik", kierunek: "chemia"},
+        {imie: "Jan", nazwisko: "Nowak", kierunek: "fizyka"},
+        {imie: "Piotr", nazwisko: "Kowalski", kierunek: "filozofia"},
+        {imie: "Paweł", nazwisko: "Polski", kierunek: "chemia"},
+        {imie: "Kasia", nazwisko: "Sobota", kierunek: "filozofia"},
+        {imie: "Robert", nazwisko: "Siwy", kierunek: "historia"},
+        {imie: "Barbara", nazwisko: "Tokarczuk", kierunek: "historia"},
+        {imie: "Albert", nazwisko: "Czwartek", kierunek: "biologia"},
+        {imie: "Beata", nazwisko: "Kozidrak", kierunek: "socjologia"},
+        {imie: "Alfred", nazwisko: "Hojny", kierunek: "biologia"},
+        {imie: "Krzesimir", nazwisko: "Staropolski", kierunek: "biologia"},
+        {imie: "Leokadia", nazwisko: "Krakowska", kierunek: "biologia"},
+        {imie: "Marek", nazwisko: "Wtorek", kierunek: "ekonomia"},
+        {imie: "Marcin", nazwisko: "Król", kierunek: "ekonomia"},
+    ];
+
+
+    var dane = {};
+    var kierunek = [];
+    var lista = document.getElementById('studenci');
+
+    for (i = 0; i < student.length; i++) {
+        kierunek.push(student[i].kierunek);
+    }
+
+    for (i = 0; i < kierunek.length; i++) {
+
+        if (kierunek[i] in dane) {
+            dane[kierunek[i]] += 1;
+        } else {
+            dane[kierunek[i]] = 1;
+        }
+    }
+
+    nazwy = new Set(kierunek);
+    nazwy = Array.from(nazwy);
+
+    lista.innerHTML += "<h2>Ilość studentów na danym kierunku:</h2>";
+    lista.innerHTML += "<ul>";
+    var ul = document.querySelector('ul');
+    for (i = 0; i < nazwy.length; i++) {
+        ul.innerHTML += '<li>' + nazwy[i] + ': ' + dane[nazwy[i]] + '</li>';
+    }
+    lista.innerHTML += '</ul>';
+
+    var wartosci = [];
+    for (i = 0; i < nazwy.length; i++) {
+        wartosci.push(dane[nazwy[i]]);
+    }
+    var dane_wykres = {
+        title: 'Studenci na wybranych kierunkach',
+        names: nazwy,
+        values: wartosci,
+        colors: ['red', 'orange', 'black', 'blue', 'green', 'brown', 'purple'],
+        legend: 'Ilość studentów na danym kierunku',
+    };
+
+    function wykres(dane, id) {
+        var t = '<h1>' + dane.title + '</h1>';
+        t += '<div class="wykres">';
+        var i;
+        for (i = 0; i < dane.names.length; i++) {
+            t += "<div style='height:" + (dane.values[i] * 100) + "px;background:" + dane.colors[i] + "'>";
+            t += "<b>" + dane.names[i] + "</b>";
+            t += "<div>" + dane.values[i] + "</div>";
+            t += "</div>";
+        }
+
+        t += '</div>';
+        t += "<div>" + dane.legend + "</div>";
+        document.getElementById(id).innerHTML = t;
+    }
+
+
+</script>
+</html>

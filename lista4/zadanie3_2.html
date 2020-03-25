@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        h1 {
+            font-size: 50px
+        }
+
+        #cel, #x {
+            font-size: 50px
+        }
+
+        button {
+            font-size: 20px
+        }
+
+        h1, div {
+            text-align: center
+        }
+
+        div {
+            font-size: 30px
+        }
+
+        span {
+            background: yellow;
+            border: 1px solid grey;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+            line-height: 80px;
+
+        }
+
+        #rozwiazanie {
+            background-color: green
+        }
+
+        #sekwencja {
+            background-color: lightblue
+        }
+    </style>
+</head>
+<body>
+<h1>Binary</h1>
+
+<div id='cel'></div>
+<div id='x'></div>
+
+<div>
+    <span onclick='razy()'>*3</span> <span id='dodaj1'>+1</span><span id='dodaj2'>+2</span>
+</div>
+
+<div>
+    <button onclick='losuj(100)'>Do 100</button>
+    <button onclick='losuj(1000)'>Do 1000</button>
+    <button onclick='losuj(10000)'>Do 10000</button>
+    <button onclick='losuj(100000)'>Do 10000</button>
+    <button onclick='losuj(1000000)'>Do 100000</button>
+</div>
+
+<script>
+
+    var cel = document.querySelector('#cel');
+    var x = document.querySelector('#x');
+    var dodaj1 = document.querySelector('#dodaj1');
+    var dodaj2 = document.querySelector('#dodaj2');
+
+    losuj(100);
+
+    function losuj(n) {
+        cel.innerHTML = Math.ceil(Math.random() * n);
+        x.innerHTML = 0;
+        dodaj1.onclick = null;
+        dodaj1.style.background = 'grey';
+        dodaj2.onclick = null;
+        dodaj2.style.background = 'grey';
+    }
+
+    function razy() {
+        x.innerHTML *= 3;
+        sprawdz();
+        dodaj1.onclick = plus1;
+        dodaj1.style.background = '';
+        dodaj2.onclick = plus2;
+        dodaj2.style.background = '';
+    }
+
+    function plus1() {
+        x.innerHTML = Number(x.innerHTML) + 1;
+        sprawdz();
+        dodaj1.onclick = null;
+        dodaj1.style.background = 'grey';
+    }
+
+    function plus2() {
+        x.innerHTML = Number(x.innerHTML) + 2;
+        sprawdz();
+        dodaj2.onclick = null;
+        dodaj2.style.background = 'grey';
+    }
+
+    function sprawdz() {
+        if (Number(x.innerHTML) > Number(cel.innerHTML))
+            cel.innerHTML = 'Niestety przegrałeś';
+        if (Number(x.innerHTML) === Number(cel.innerHTML))
+            cel.innerHTML = 'Gratuluję wygranej!!!';
+    }
+
+
+</script>
+
+</body>
+</html>

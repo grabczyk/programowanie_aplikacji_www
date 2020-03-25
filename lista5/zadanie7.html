@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 7</title>
+    <style>
+        button#dodawanie {
+            position: absolute;
+            margin-top: 30px
+        }
+
+        select {
+            position: absolute
+        }
+
+        #przyciski {
+            position: fixed;
+            bottom: 50%;
+            right: 40%;
+        }
+
+        #usuwanie {
+            position: absolute;
+            top: 150%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<canvas width=700 height=700 style="border: 1px solid black">
+</canvas>
+<div id="przyciski">
+    Punkt x:<br>
+    <input type="text" id="x">
+    <br>
+    Punkt y:<br>
+    <input type="text" id="y">
+    <br>
+    Długość:<br>
+    <input type="text" id="size">
+    <br>
+    Kształt:<br>
+    <select id="select">
+        <option value="domek">Domek</option>
+        <option value="balwan">Balan</option>
+    </select>
+    <button id='dodawanie' onclick="dodaj()">Dodaj</button>
+    <div id="usuwanie"></div>
+</div>
+</body>
+<script>
+    let ctx = document.querySelector("canvas").getContext("2d");
+    let run = false;
+
+    let dane = [];
+
+    function snowman(x, y, width) {
+
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(x, y, width, 1.5 * Math.PI, 3.5 * Math.PI);
+        ctx.arc(x, y - width * 1.2, 0.7 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - width * 1.7, 0.2 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x, y - width * 1.9);
+        ctx.arc(x, y - width * 2.1, 0.5 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.stroke();
+        ctx.fill();
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.arc(x, y - width * 1.2, 0.1 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - width * 0.9, 0.1 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.arc(x, y - width * 0.6, 0.1 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x - 0.1 * width, y - 2 * width);
+        ctx.arc(x - 0.15 * width, y - width * 2.2, 0.08 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x + 0.1 * width, y - 2 * width);
+        ctx.arc(x + 0.15 * width, y - width * 2.2, 0.08 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.moveTo(x, y - 1.8 * width);
+        ctx.arc(x, y - 1.8 * width, 0.15 * width, Math.PI, 0, true);
+        ctx.moveTo(x - 0.5 * width, y + width * 2);
+        ctx.rect(x - 0.5 * width, y - width * 2.6, width, 2);
+        ctx.rect(x - 0.40 * width, y - width * 2.8, width * 0.8, width * 0.25);
+        ctx.fill();
+
+        ctx.fillStyle = "orange";
+        ctx.beginPath();
+        ctx.arc(x, y - width * 1.98, 0.08 * width, 0.5 * Math.PI, 2.5 * Math.PI);
+        ctx.fill();
+    }
+
+    function house(x, y, width) {
+        ctx.fillStyle = "gray";
+        ctx.beginPath();
+        ctx.rect(x, y, width, width);
+        ctx.fill();
+
+        ctx.fillStyle = "black";
+        ctx.beginPath();
+        ctx.rect(x + 0.4 * width, y + 0.70 * width, 0.2 * width, 0.3 * width);
+
+        ctx.moveTo(x - 0.1 * width, y);
+        ctx.lineTo(x + width * 1.1, y);
+        ctx.lineTo(x + 0.5 * width, y - 0.2 * width);
+
+        ctx.rect(x + 0.15 * width, y + 0.15 * width, 0.2 * width, 0.2 * width);
+        ctx.rect(x + 0.65 * width, y + 0.15 * width, 0.2 * width, 0.2 * width);
+        ctx.fill();
+
+    }
+
+    function balwan() {
+        snowman(this.x, this.y, this.size);
+    }
+
+    function domek() {
+        house(this.x, this.y, this.size);
+    }
+
+    function redraw() {
+        ctx.clearRect(0, 0, 700, 700);
+        for (let i of dane) {
+            i.rysuj();
+        }
+    }
+
+    function ruch() {
+        for (let f of dane) {
+            f.x += f.vx;
+            if (f.x < 0 || f.x + f.size > 700) f.vx *= -1;
+            f.y += f.vy;
+            if (f.y < 0 || f.y + f.size > 700) f.vy *= -1;
+        }
+        redraw(dane);
+        if (run) {
+            setTimeout(ruch, 10)
+        }
+    }
+
+    let clicked = 0;
+
+    function dodaj() {
+        let x = document.getElementById('x');
+        let y = document.getElementById('y');
+        let size = document.getElementById('size');
+        let select = document.getElementById('select');
+
+        if (x.value === "" || y.value === "" || size.value === "") {
+            return;
+        }
+
+        run = true;
+        if (clicked === 0) {
+            ruch();
+        }
+        clicked = 1;
+
+        let obiekt = {
+            x: Number(x.value),
+            y: Number(y.value),
+            size: Number(size.value),
+            vx: 2,
+            vy: -2,
+            rysuj: null
+        };
+        if (select.value === "domek") {
+            obiekt.rysuj = domek;
+        } else if (select.value === "balwan") {
+            obiekt.rysuj = balwan
+        }
+        dane.push(obiekt);
+        przyciski();
+    }
+
+    function przyciski() {
+        let div = document.getElementById('usuwanie');
+        div.innerHTML = '';
+        div.innerHTML = "Usuwanie:<br>";
+        for (let f of dane) {
+            let przycisk = document.createElement('button');
+            przycisk.innerHTML = 'Usuń ' + dane.indexOf(f);
+            przycisk.id = dane.indexOf(f);
+            przycisk.addEventListener('click', function () {
+                dane.splice(this.id, 1);
+                this.remove();
+                if (dane.length === 0) {
+                    div.innerText = '';
+                }
+            });
+            div.appendChild(przycisk);
+            przycisk.id = null;
+        }
+
+    }
+
+</script>
+</html>

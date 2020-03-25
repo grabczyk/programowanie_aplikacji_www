@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwiczenie 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        body {
+            font-family: Verdana, sans-serif;
+        }
+
+        #month {
+
+            width: 100%;
+            height: 20px;
+            background: #1abc9c;
+            text-align: center;
+        }
+
+
+        #month div {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+
+        }
+
+        #month .prev {
+            float: left;
+            padding-top: 10px;
+        }
+
+        #month .next {
+            float: right;
+            padding-top: 10px;
+        }
+
+        #weekdays {
+            margin: 0;
+            padding: 10px 0;
+            background-color: #ddd;
+        }
+
+        #weekdays div {
+            display: inline-block;
+            width: 13.6%;
+            color: #666;
+            text-align: center;
+        }
+
+        #days {
+            padding: 10px 0;
+            background: #eee;
+
+        }
+
+        #days div {
+            display: inline-block;
+            width: 14%;
+            vertical-align: top;
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 12px;
+            color: #777;
+            height: 100px;
+            border: 1px solid black;
+            margin: 1px;
+
+        }
+        #days div:empty{
+            border: none;
+        }
+
+        #week div{
+            display: inline-block;
+            width: 14%;
+            vertical-align: top;
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 12px;
+            color: #777;
+            height: 500px;
+            border: 1px solid black;
+            margin: 1px;
+        }
+    </style>
+</head>
+<body>
+<div id="buttons"></div>
+<div id="calendar">
+    <div id="month">
+    </div>
+    <div id="weekdays">
+        <div>Pon</div>
+        <div>Wt</div>
+        <div>Śr</div>
+        <div>Czw</div>
+        <div>Pią</div>
+        <div>Sob</div>
+        <div>Nie</div>
+    </div>
+    <div id="days">
+    </div>
+</div>
+</body>
+<script>
+    let today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+    let selectYear = document.getElementById("year");
+    let selectMonth = document.getElementById("month");
+
+    let months = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+
+
+    function monthView(month, year) {
+
+        let firstDay = (new Date(year, month)).getDay(); //przesuniecie dni
+        let daysInMonth = 32 - new Date(year, month, 32).getDate(); // ile dni w miesiacu
+        let days = document.getElementById('days');
+        let month_div = document.getElementById('month');
+
+        // clearing all previous cells
+        days.innerHTML = "";
+
+
+        month_div.append(months[currentMonth]);
+        for (i = 0; i < firstDay; i++) {
+            let div = document.createElement('div');
+            days.append(div);
+        } //puste divy na przesunieie
+
+        for (i = 1; i <= daysInMonth; i++) {
+            let div = document.createElement('div');
+            let text = document.createTextNode(i);
+            div.setAttribute('id',i);
+            div.appendChild(text);
+            days.append(div);
+        } //divy na dni w miesiacu
+    }
+
+    function weekView() {
+        let calendar = document.getElementById('calendar');
+        let weekdays = $('#calendar div#weekdays').detach();
+        calendar.innerHTML='';
+        $('#calendar').append(weekdays);
+        let week_div = document.createElement('div');
+        week_div.setAttribute('id','week');
+        let week = []; // Bierzący tydzień
+        for (let i = 1; i <= 7; i++) {
+            let first = today.getDate() - today.getDay() + i;
+            let day = new Date(today.setDate(first)).toISOString().slice(0, 10);
+            week.push(day);
+        }
+        for (i=0;i<week.length;i++){
+            let div = document.createElement('div');
+            let text_date = document.createTextNode(week[i]);
+            div.appendChild(text_date);
+            week_div.append(div);
+        }
+
+        for (i=0;i<7;i++){
+            for (j=0;j<=23;j++){
+                let hour = document.createElement('div');
+                let text = document.createTextNode(j);
+                hour.appendChild(text);
+                week_div.append(hour);
+            }
+        }
+        calendar.appendChild(week_div);
+
+    }
+    monthView(currentMonth, currentYear);
+    //     for (let i = 0; i < 6; i++) {
+    //         // creates a table row
+    //         let row = document.createElement("li");
+    //
+    //         //creating individual cells, filing them up with data.
+    //         for (let j = 0; j < 7; j++) {
+    //             if (i === 0 && j < firstDay) {
+    //                 let cell = document.createElement("li");
+    //                 let cellText = document.createTextNode("");
+    //                 cell.appendChild(cellText);
+    //                 row.appendChild(cell);
+    //             }
+    //             else if (date > daysInMonth) {
+    //                 break;
+    //             }
+    //
+    //             else {
+    //                 let cell = document.createElement("li");
+    //                 let cellText = document.createTextNode(date);
+    //                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
+    //                     cell.classList.add("bg-info");
+    //                 } // color today's date
+    //                 cell.appendChild(cellText);
+    //                 row.appendChild(cell);
+    //                 date++;
+    //             }
+    //
+    //
+    //         }
+    //
+    //         days.appendChild(row); // appending each row into calendar body.
+    //     }
+    //
+    // }
+
+</script>
+</html>

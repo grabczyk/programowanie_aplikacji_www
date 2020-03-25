@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        #ramka {
+            height: 500px;
+            width: 500px;
+            border: 1px solid grey;
+            margin: auto;
+            position: relative
+        }
+
+        b {
+            display: block;
+            position: absolute;
+        }
+
+        h1, div {
+            text-align: center;
+        }
+
+        img {
+            width: 50px;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+
+</body>
+
+<h1>Samolociki</h1>
+<div id='ramka'>
+    <b></b>
+    <b></b>
+    <b></b>
+    <b></b>
+    <b></b>
+
+
+</div>
+<p></p>
+<div>
+    <button onclick="run=false"> Stop</button>
+    <button onclick="run=true;step();inkrementujSekundy();"> Start</button>
+    <button onclick="nowagra();inkrementujSekundy();">Nowa gra</button>
+    <button onclick="poziom0();inkrementujSekundy()">Poziom 0</button>
+    <button onclick="poziom1();inkrementujSekundy()">Poziom 1</button>
+</div>
+
+
+<script>
+    var b = document.getElementsByTagName('B');
+    var run = false;
+    var i;
+    var sekundy = 0;
+    ilosc = b.length;
+    for (i = 0; i < b.length; i++) {
+        b[i].x = Math.random() * 450;
+        b[i].y = Math.random() * 450;
+
+        b[i].vx = Math.random() * 20 - 10;
+        b[i].vy = Math.random() * 20 - 10;
+
+        b[i].style.left = b[i].x + "px";
+        b[i].style.top = b[i].y + "px";
+        b[i].innerHTML += '<img src="samolot.png"/>';
+        b[i].style.transform = "rotate(" + Math.atan2(b[i].vy, b[i].vx) * 60 + "deg)";
+
+        b[i].onmousedown = znikniecie;
+    }
+
+    function step() {
+
+        var i;
+        for (i = 0; i < b.length; i++) {
+            b[i].x += b[i].vx;
+            b[i].y += b[i].vy;
+
+            if (b[i].x > 470 || b[i].x < 0) b[i].vx *= -1;
+            if (b[i].y > 470 || b[i].y < 0) b[i].vy *= -1;
+
+            b[i].style.left = b[i].x + "px";
+            b[i].style.top = b[i].y + "px";
+            b[i].style.transform = "rotate(" + Math.atan2(b[i].vy, b[i].vx) * 60 + "deg)";
+
+        }
+
+        if (run)
+            setTimeout(step, 20);
+
+
+    }
+
+
+    function bazowa() {
+        var image = document.querySelectorAll('img');
+        var p = document.querySelector('p')
+        ilosc = image.length;
+        p.innerHTML = '<p>Aktualna liczba samolotów: ' + ilosc + '</p>'
+    }
+
+    function licznik() {
+        var p = document.querySelector('p')
+
+        p.innerHTML = '<p>Aktualna liczba samolotów:' + ilosc + '</p>'
+        if (ilosc === 0) {
+
+            p.innerHTML = '<p>Mission completed in: ' + sekundy + ' seconds</p>';
+
+        }
+    }
+
+    function inkrementujSekundy() {
+        var image = document.querySelectorAll('img');
+        ilosc = image.length;
+        czas = setInterval(function () {
+            sekundy += 1
+            if (ilosc === 0) {
+                clearInterval(czas);
+                sekundy = 0;
+                run = false;
+            }
+        }, 1000);
+    }
+
+
+    function znikniecie() {
+        if (sekundy === 0) {
+        } else {
+            ilosc--;
+
+            this.style.display = "none";
+            licznik();
+        }
+    }
+
+    function nowagra() {
+        console.log("New game");
+        run = true;
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "block";
+            b[i].vx = 0;
+            b[i].vy = 0;
+        }
+        var i;
+        for (i = 0; i < b.length; i++) {
+            b[i].x = Math.random() * 450;
+            b[i].y = Math.random() * 450;
+
+            b[i].vx = Math.random() * 20 - 10;
+            b[i].vy = Math.random() * 20 - 10;
+
+            b[i].style.left = b[i].x + "px";
+            b[i].style.top = b[i].y + "px";
+            b[i].style.transform = "rotate(" + Math.atan2(b[i].vy, b[i].vx) * 60 + "deg)";
+
+            b[i].onmousedown = znikniecie;
+        }
+        ilosc = b.length;
+        step();
+        sekundy = 0;
+        licznik();
+    }
+
+    click0 = 0;
+
+    function poziom0() {
+        console.log("New game");
+        run = true;
+        click0++;
+        var table = document.getElementById('ramka');
+        for (let i = 0; i <= click0; i++) {
+            table.innerHTML += '<b><img src="samolot.png"/></b>'
+        }
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "block";
+            b[i].vx = 0;
+            b[i].vy = 0;
+        }
+        var i;
+        for (i = 0; i < b.length; i++) {
+            b[i].x = Math.random() * 450;
+            b[i].y = Math.random() * 450;
+
+            b[i].vx = Math.random() * 25 - 10;
+            b[i].vy = Math.random() * 25 - 10;
+
+            b[i].style.left = b[i].x + "px";
+            b[i].style.top = b[i].y + "px";
+            b[i].style.transform = "rotate(" + Math.atan2(b[i].vy, b[i].vx) * 60 + "deg)";
+
+            b[i].onmousedown = znikniecie;
+        }
+        ilosc = b.length;
+        step();
+        sekundy = 0;
+        licznik();
+
+    }
+
+    click1 = 1;
+
+    function poziom1() {
+        run = true;
+        click1++;
+        var table = document.getElementById('ramka');
+        for (let i = 0; i <= click1; i++) {
+            table.innerHTML += '<b><img src="samolot.png"/></b>'
+        }
+        for (let i = 0; i < b.length; i++) {
+            b[i].style.display = "block";
+            b[i].vx = 0;
+            b[i].vy = 0;
+        }
+        var i;
+        for (i = 0; i < b.length; i++) {
+            b[i].x = Math.random() * 450;
+            b[i].y = Math.random() * 450;
+
+            b[i].vx = Math.random() * 30 - 10;
+            b[i].vy = Math.random() * 30 - 10;
+
+            b[i].style.left = b[i].x + "px";
+            b[i].style.top = b[i].y + "px";
+            b[i].style.transform = "rotate(" + Math.atan2(b[i].vy, b[i].vx) * 60 + "deg)";
+
+            b[i].onmousedown = znikniecie;
+        }
+        ilosc = b.length;
+        step();
+        sekundy = 0;
+        licznik();
+
+    }
+
+    bazowa();
+</script>
+
+</html>

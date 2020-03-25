@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Ćwiczenie 3</title>
+    <style>
+        #ramka {
+            height: 500px;
+            width: 500px;
+            border: 1px solid grey;
+            margin: auto;
+            position: relative
+        }
+
+
+        b {
+            display: block;
+            position: absolute;
+        }
+
+        h1, div {
+            text-align: center;
+        }
+
+        img {
+            width: 50px;
+            transform: rotate(45deg)
+        }
+    </style>
+</head>
+<body>
+
+</body>
+
+<h1>Samolociki</h1>
+<center>
+    <svg id='ramka'>
+        <rect x="10" y="10" width="20" height="20" fill="blue"/>
+        <rect x="30" y="30" width="20" height="20" fill="blue"/>
+        <rect x="50" y="50" width="20" height="20" fill="blue"/>
+        <rect x="70" y="70" width="20" height="20" fill="blue"/>
+        <rect x="90" y="90" width="20" height="20" fill="blue"/>
+        <rect x="110" y="110" width="20" height="20" fill="blue"/>
+        <rect x="130" y="130" width="20" height="20" fill="blue"/>
+        <rect x="150" y="150" width="20" height="20" fill="blue"/>
+        <rect x="170" y="170" width="20" height="20" fill="blue"/>
+        <rect x="190" y="190" width="20" height="20" fill="blue"/>
+    </svg>
+</center>
+<div>
+    <button onclick="run=false"> Stop</button>
+    <button onclick="run=true;step()"> Start</button>
+</div>
+
+
+<script>
+    var b = document.getElementsByTagName('rect');
+    var run = false;
+    var i;
+    for (i = 0; i < b.length; i++) {
+        b[i].sx = Math.random() * 450;
+        b[i].sy = Math.random() * 450;
+
+        b[i].vx = Math.random() * 20 - 10;
+        b[i].vy = Math.random() * 20 - 10;
+
+
+        b[i].onclick = stop;
+    }
+
+    function step() {
+        var i;
+        for (i = 0; i < b.length; i++) {
+            b[i].sx += b[i].vx;
+            b[i].sy += b[i].vy;
+
+            if (b[i].sx > 480 || b[i].sx < 0) b[i].vx *= -1;
+            if (b[i].sy > 480 || b[i].sy < 0) b[i].vy *= -1;
+
+            b[i].x.baseVal.value = b[i].sx;
+            b[i].y.baseVal.value = b[i].sy;
+
+        }
+
+        if (run)
+            setTimeout(step, 20);
+
+    }
+
+    function stop() {
+        this.vx = 0;
+        this.vy = 0;
+    }
+</script>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Ćwiczenie 5</title>
+    <style>
+        td, th {
+            width: 40px;
+            height: 40px;
+            border: 1px solid grey;
+        }
+
+        table {
+            border-collapse: collapse
+        }
+
+        tr:nth-child(odd) td:nth-child(odd) {
+            background: #ddd
+        }
+
+        tr:nth-child(even) td:nth-child(even) {
+            background: #ddd
+        }
+
+        li {
+            list-style-type: none
+        }
+
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<button onclick='f()'>Liczby</button>
+<button onclick='b()'>Zwiększ o 1</button>
+<button onclick='c()'>zielony-nieparzyste, czerwony-parzyste</button>
+<button onclick='d()'>Dodaj na koniec</button>
+<button onclick='e()'>Dodaj na początek</button>
+<button onclick='suma()'>Suma</button>
+<button onclick='g()'>Czyść</button>
+<button onclick='h()'>Czyść kolory</button>
+<button onclick='i()'>Czyść wiersze</button>
+
+
+<script>
+    function f() {
+        var td = document.querySelectorAll('td');
+        for (let i = 0; i < td.length; i++) {
+            td[i].innerHTML = i + 1;
+        }
+
+    }
+
+
+    function b() {
+        var td = document.querySelectorAll('td');
+        var tmp = 0;
+        for (let i = 0; i < td.length; i++) {
+            tmp = parseInt(td[i].innerHTML, 10);
+            if (isNaN(tmp)) {
+
+            } else {
+
+
+                tmp += 1;
+                td[i].innerHTML = tmp;
+            }
+        }
+
+    }
+
+    function c() {
+        var td = document.querySelectorAll('td');
+        for (let i = 0; i < td.length; i++) {
+            if (td[i].innerHTML % 2 === 1) {
+                td[i].style.background = 'green';
+            } else td[i].style.background = 'red';
+
+        }
+    }
+
+    function d() {
+        var tr = document.querySelectorAll('tr');
+        for (let i = 0; i <= tr.length; i++) {
+            tr[i].innerHTML += '<td></td>';
+        }
+    }
+
+    function e() {
+        var tr = document.querySelectorAll('tr');
+        for (let i = 0; i <= tr.length; i++) {
+            tr[i].innerHTML = '<th></th>' + tr[i].innerHTML;
+        }
+    }
+
+    run = false;
+
+    function suma() {
+        var th = document.querySelectorAll('th');
+        var tr = document.querySelectorAll('tr');
+        var suma = 0;
+        var int;
+        run = true;
+        if (run) {
+
+
+            for (let i = 0; i < th.length; i++) {
+                for (let j = 1; j < tr[i].cells.length; j++) {
+                    int = parseInt(tr[i].cells[j].innerHTML);
+                    if (isNaN(int)) {
+                        int = 0;
+                    }
+                    suma += int;
+                }
+                th[i].innerHTML = suma;
+                suma = 0;
+            }
+        }
+    }
+
+
+    function g() {
+        var td = document.querySelectorAll('td');
+        var th = document.querySelectorAll('th');
+        for (let j = 0; j < th.length; j++) {
+            th[j].innerHTML = null;
+        }
+        for (let i = 0; i <= td.length; i++) {
+            td[i].innerHTML = null;
+        }
+
+
+    }
+
+    function h() {
+        var td = document.querySelectorAll('td');
+        for (let i = 0; i <= td.length; i++) {
+            td[i].style.background = '';
+        }
+    }
+
+    function i() {
+        var tr = document.querySelectorAll('tr');
+        for (let i = 0; i <= tr.length; i++) {
+            tr[i].innerHTML = '<tr></tr>';
+        }
+
+
+    }
+
+</script>
+</body>
+</html>

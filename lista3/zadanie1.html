@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <title>Ćwiczenie 1</title>
+
+    <style>
+        div:empty {
+            border: none;
+        }
+
+        div {
+            box-sizing: border-box;
+            border: 2px solid black;
+        }
+
+        img {
+            width: 20%;
+            position: absolute;
+            left: 500px;
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+<button onclick="funA()">Witaj</button>
+<button onclick="funB1()">1...100</button>
+<button onclick="funB2()">1...n</button>
+<button onclick="funB3()">Wielokotności</button>
+<button onclick="funC1()">Ukrycie ramki</button>
+<button onclick="funC2()">Pokazanie ramki</button>
+<button onclick="funD()">Przesunięcie zdjęcia</button>
+<br>
+<div id='ramka'></div>
+<img id='foton' src='foton.jpg'/>
+n=<input name="n" value="55" type="number">
+<script>
+    var x = document.querySelector("#ramka");
+
+    function numGen(n) {
+        x.innerHTML = '';
+        for (let i = 1; i <= n; i++) {
+            x.innerHTML += i;
+            x.innerHTML += ', ';
+        }
+    }
+
+    function funA() {
+        var tekst = "Dzień  dobry";
+        x.innerHTML = tekst;
+
+    }
+
+    function funB1() {
+        numGen(100);
+    }
+
+    function funB2() {
+        var input = document.querySelector('input[name="n"]').value;
+        numGen(input);
+    }
+
+    function funB3() {
+        var input = document.querySelector('input[name="n"]').value;
+        x.innerHTML = '';
+        for (let i = 0; i <= 99; i++) {
+            x.innerHTML += input * i;
+            x.innerHTML += ", ";
+        }
+    }
+
+    function funC1() {
+        document.getElementById('ramka').style.display = 'none';
+    }
+
+    function funC2() {
+        document.getElementById('ramka').style.display = 'block';
+    }
+
+    function funD() {
+        var image = document.querySelector('#foton');
+        var position = Math.random() * 100;
+        image.style.left = position + '%';
+    }
+</script>
+</body>
+</html>
